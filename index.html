@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DealFinder LK – Every offer in Sri Lanka, in one place</title>
+    <meta name="description" content="Find today's offers, bank card promotions and discounts from shops, restaurants, hotels and online stores across Sri Lanka." />
+    <meta name="author" content="DealFinder LK" />
+    <meta name="theme-color" content="#0B7A6E" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="DealFinder LK" />
+    <meta property="og:title" content="DealFinder LK – Every offer in Sri Lanka, in one place" />
+    <meta property="og:description" content="Bank card discounts, supermarket promos, restaurant deals and online sales across Sri Lanka." />
+    <meta property="og:image" content="https://sri-lanka-deals.vercel.app/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DealFinder LK – Every offer in Sri Lanka, in one place" />
+    <meta name="twitter:description" content="Bank card discounts, supermarket promos, restaurant deals and online sales across Sri Lanka." />
+    <meta name="twitter:image" content="https://sri-lanka-deals.vercel.app/og-image.png" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <script>
+      // Apply the saved colour theme before the page paints (no white flash in dark mode).
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "dark" || (!t && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+          document.documentElement.classList.add("dark");
+        }
+      } catch (e) {}
+    </script>
+  </head>
+
+  <body>
+    <noscript>DealFinder LK needs JavaScript to show offers.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

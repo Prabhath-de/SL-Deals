@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Ink & paper */
+    --background: 216 27% 96%;      /* #F3F5F8 canvas */
+    --foreground: 217 44% 14%;      /* #142033 ink */
+    --card: 0 0% 100%;
+    --card-foreground: 217 44% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 217 44% 14%;
+
+    /* Brand teal */
+    --primary: 173 83% 26%;         /* #0B7A6E */
+    --primary-foreground: 0 0% 100%;
+
+    /* Saffron — used only for discounts */
+    --saffron: 39 90% 50%;          /* #F2A20C */
+    --saffron-foreground: 217 44% 14%;
+
+    /* Flag maroon — urgency (ending soon) */
+    --maroon: 340 75% 32%;          /* #8D153A */
+    --maroon-foreground: 0 0% 100%;
+
+    --secondary: 216 25% 92%;
+    --secondary-foreground: 217 44% 14%;
+    --muted: 216 25% 92%;
+    --muted-foreground: 217 15% 42%;
+    --accent: 173 45% 92%;
+    --accent-foreground: 173 83% 20%;
+    --destructive: 0 72% 46%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 60% 32%;
+
+    --border: 216 20% 87%;
+    --input: 216 20% 82%;
+    --ring: 173 83% 30%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 218 42% 9%;       /* #0E1522 */
+    --foreground: 216 30% 94%;
+    --card: 218 36% 14%;            /* #162033 */
+    --card-foreground: 216 30% 94%;
+    --popover: 218 36% 14%;
+    --popover-foreground: 216 30% 94%;
+    --primary: 172 60% 42%;
+    --primary-foreground: 218 42% 9%;
+    --saffron: 39 92% 55%;
+    --saffron-foreground: 218 42% 9%;
+    --maroon: 340 70% 62%;
+    --maroon-foreground: 218 42% 9%;
+    --secondary: 218 30% 19%;
+    --secondary-foreground: 216 30% 94%;
+    --muted: 218 30% 19%;
+    --muted-foreground: 216 15% 68%;
+    --accent: 172 40% 18%;
+    --accent-foreground: 172 55% 75%;
+    --destructive: 0 70% 60%;
+    --destructive-foreground: 218 42% 9%;
+    --success: 152 50% 52%;
+    --border: 218 28% 22%;
+    --input: 218 28% 28%;
+    --ring: 172 60% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-feature-settings: "ss01";
+  }
+  h1, h2, h3, h4 {
+    @apply font-heading tracking-tight;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* The signature element: a deal ticket with a perforated tear line. */
+  .ticket-tear {
+    position: relative;
+    height: 0;
+    border-top: 2px dashed hsl(var(--border));
+    margin: 0 14px;
+  }
+  .ticket-tear::before,
+  .ticket-tear::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background: hsl(var(--background));
+    box-shadow: inset 0 0 0 1px hsl(var(--border));
+  }
+  .ticket-tear::before { left: -24px; clip-path: inset(0 0 0 50%); }
+  .ticket-tear::after { right: -24px; clip-path: inset(0 50% 0 0); }
+
+  /* Saffron discount stamp with a notched tag edge */
+  .stamp {
+    @apply font-heading font-bold leading-none text-saffron-foreground;
+    background: hsl(var(--saffron));
+    clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%);
+    padding: 0.4rem 0.6rem 0.4rem 1rem;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 h-11 text-sm font-semibold transition-colors disabled:opacity-50 disabled:pointer-events-none whitespace-nowrap;
+  }
+  .btn-primary { @apply bg-primary text-primary-foreground hover:bg-primary/90; }
+  .btn-outline { @apply border border-input bg-card text-foreground hover:bg-secondary; }
+  .btn-ghost { @apply text-foreground hover:bg-secondary; }
+  .btn-danger { @apply bg-destructive text-destructive-foreground hover:bg-destructive/90; }
+  .btn-sm { @apply h-9 px-4 text-xs; }
+
+  .field {
+    @apply w-full rounded-lg border border-input bg-card px-3.5 h-11 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/40 focus:border-ring;
+  }
+  textarea.field { @apply h-auto py-2.5; }
+  .field[aria-invalid="true"] { @apply border-destructive focus:ring-destructive/30; }
+  .label { @apply block text-sm font-medium text-foreground mb-1.5; }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3.5 h-9 text-sm font-medium text-foreground hover:border-primary/50 transition-colors whitespace-nowrap;
+  }
+  .chip-active { @apply border-primary bg-primary text-primary-foreground hover:border-primary; }
+
+  .panel { @apply rounded-2xl border border-border bg-card; }
+
+  .scrollbar-none { scrollbar-width: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+}
